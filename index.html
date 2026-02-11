@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AgroTani Modern - Solusi Pertanian Masa Depan</title>
+    <meta name="description" content="Perusahaan pertanian modern berbasis teknologi." />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+      /* --- 1. SETUP VARIABEL WARNA --- */
+      :root {
+        --primary-green: #2ecc71;
+        --dark-green: #27ae60;
+        --text-main: #333333;
+        --text-muted: #6c757d;
+        --bg-body: #ffffff;
+        --bg-card: #f8f9fa;
+        --bg-quote: #e8f5e9;
+        --nav-scrolled: rgba(255, 255, 255, 0.95);
+        --shadow-color: rgba(0,0,0,0.1);
+      }
+
+      /* --- 2. CONFIG DARK MODE --- */
+      body.dark-mode {
+        --text-main: #ecf0f1;
+        --text-muted: #adb5bd;
+        --bg-body: #121212;       /* Hitam pekat */
+        --bg-card: #1e1e1e;       /* Abu gelap untuk kartu */
+        --bg-quote: #1b2e20;      /* Hijau sangat gelap */
+        --nav-scrolled: rgba(18, 18, 18, 0.95);
+        --shadow-color: rgba(0,0,0,0.5);
+      }
+
+      /* Transisi halus saat ganti mode */
+      body, .card, .navbar, .quote-section {
+        transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-main);
+        background-color: var(--bg-body);
+        overflow-x: hidden;
+      }
+
+      /* Navbar Styling */
+      .navbar {
+        transition: all 0.4s ease;
+        padding: 1rem 0;
+      }
+      
+      .navbar.scrolled {
+        background-color: var(--nav-scrolled);
+        box-shadow: 0 2px 10px var(--shadow-color);
+        padding: 0.5rem 0;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: var(--primary-green) !important; /* Brand tetap hijau */
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Logo Animation */
+      .logo-icon {
+        width: 30px;
+        height: 30px;
+        background-color: var(--primary-green);
+        border-radius: 50% 0 50% 0;
+        display: inline-block;
+        animation: sprout 3s infinite ease-in-out;
+      }
+
+      @keyframes sprout {
+        0%, 100% { transform: scale(1) rotate(0deg); }
+        50% { transform: scale(1.1) rotate(10deg); }
+      }
+
+      .nav-link {
+        font-weight: 500;
+        color: var(--text-main) !important; /* Ikut mode gelap/terang */
+        transition: color 0.3s;
+      }
+      .nav-link:hover, .nav-link.active {
+        color: var(--primary-green) !important;
+      }
+
+      /* Tombol Toggle Dark Mode */
+      .theme-toggle {
+        cursor: pointer;
+        background: none;
+        border: 2px solid var(--primary-green);
+        color: var(--primary-green);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 10px;
+        transition: all 0.3s;
+      }
+      
+      .theme-toggle:hover {
+        background: var(--primary-green);
+        color: white;
+      }
+
+      /* Carousel / Hero Section */
+      .carousel-item {
+        height: 85vh; 
+        min-height: 500px;
+        background: #000;
+      }
+
+      .carousel-item img {
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.6; 
+      }
+
+      .carousel-caption {
+        bottom: 30%;
+        text-align: left;
+      }
+
+      .carousel-caption h5 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        opacity: 0; 
+        transform: translateY(20px);
+        animation: fadeInUp 1s forwards 0.5s;
+        color: #fff; /* Teks di carousel tetap putih */
+      }
+
+      .carousel-caption p {
+        font-size: 1.2rem;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s forwards 0.8s;
+        color: #f8f9fa;
+      }
+
+      /* Cards Styling */
+      .card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+        height: 100%;
+        background-color: var(--bg-card); /* Ikut variable */
+        color: var(--text-main);
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px var(--shadow-color);
+      }
+
+      .card-img-top {
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-green);
+        border: none;
+        padding: 10px 25px;
+        border-radius: 30px;
+        transition: background 0.3s;
+        color: #fff !important;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--dark-green);
+      }
+
+      /* Quote Section */
+      .quote-section {
+        background-color: var(--bg-quote);
+        padding: 5rem 0;
+        margin: 3rem 0;
+        border-left: 5px solid var(--primary-green);
+        color: var(--text-main);
+      }
+      
+      .quote-author {
+        color: var(--text-muted);
+      }
+
+      /* Text Helpers */
+      .text-custom-muted {
+          color: var(--text-muted) !important;
+      }
+
+      /* Footer */
+      footer {
+        background-color: #2f6d41; /* Footer selalu gelap tapi sedikit hijau */
+        color: #ecf0f1;
+        padding: 3rem 0;
+        margin-top: 5rem;
+      }
+      
+      footer a { color: #bdc3c7; text-decoration: none; }
+      footer a:hover { color: var(--primary-green); }
+
+      /* Animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes fadeInUp {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ============================= */
+/* RESPONSIVE FIX - MOBILE FIRST */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+  /* Carousel tinggi lebih masuk akal di HP */
+  .carousel-item {
+    height: 65vh;
+    min-height: 320px;
+  }
+
+  /* Gambar tetap proporsional */
+  .carousel-item img {
+    opacity: 0.7;
+  }
+
+  /* Caption ditengah & aman */
+  .carousel-caption {
+    bottom: 20%;
+    left: 5%;
+    right: 5%;
+    text-align: center;
+  }
+
+  /* Judul dikecilkan */
+  .carousel-caption h5 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  /* Paragraf dikecilkan */
+  .carousel-caption p {
+    font-size: 0.95rem;
+  }
+}
+
+/* EXTRA KECIL (HP MINI) */
+@media (max-width: 480px) {
+
+  .carousel-item {
+    height: 55vh;
+  }
+
+  .carousel-caption h5 {
+    font-size: 1.5rem;
+  }
+
+  .carousel-caption p {
+    font-size: 0.85rem;
+  }
+}
+
+    </style>
+  </head>
+  
+  <body>
+    
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <span class="logo-icon"></span>
+                AgroTani
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon" style="filter: invert(50%);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
+                </ul>
+                <div class="d-flex ms-lg-3 align-items-center">
+                    <button class="btn btn-primary" type="button">Mulai Bermitra</button>
+                    <button class="theme-toggle" id="themeToggle" title="Ganti Mode">
+                        ☀
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+         <div class="carousel-inner">
+            
+            <div class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1565102127622-df163cfbdaa4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=crop" class="d-block w-100" alt="Ladang Pertanian Luas">
+                <div class="carousel-caption">
+                    <h5>Harmoni Alam</h5>
+                    <p>Mengelola sumber daya alam dengan metode berkelanjutan demi masa depan bumi.</p>
+                </div>
+            </div>
+            
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1629897502127-18ef91f4def3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=crop" class="d-block w-100" alt="Teknologi Pertanian Modern">
+                <div class="carousel-caption">
+                    <h5>Teknologi Presisi</h5>
+                    <p>Memanfaatkan mekanisasi canggih untuk efisiensi dan hasil panen maksimal.</p>
+                </div>
+            </div>
+            
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1557844352-761f2565b576?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=crop" class="d-block w-100" alt="Hasil Panen Segar">
+                <div class="carousel-caption">
+                    <h5>Kualitas Terbaik</h5>
+                    <p>Menghasilkan pangan segar, sehat, dan organik langsung dari lahan kami.</p>
+                </div>
+            </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="container reveal" id="tentang">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <figure class="quote-section text-center shadow-sm rounded">
+                    <blockquote class="blockquote mb-4">
+                        <p class="fs-4 fst-italic">"Pertanian adalah pekerjaan paling mulia, karena memberi makan dunia dan menjaga kelestarian alam."</p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer mt-2 quote-author">
+                        CEO AgroTani <cite title="Source Title">Bpk. H. Santoso</cite>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5" id="layanan">
+        <div class="row mb-4 text-center reveal">
+            <div class="col-12">
+                <h2 class="fw-bold" style="color: var(--primary-green);">Layanan Unggulan</h2>
+                <p class="text-custom-muted">Solusi komprehensif untuk kebutuhan agribisnis Anda.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4 reveal">
+                <div class="card h-100">
+                    <img class="card-img-top" src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=1925&auto=format&fit=crop" alt="Bibit">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold">Bibit Unggul</h5>
+                        <p class="card-text text-custom-muted">Penyediaan bibit tanaman pangan dan hortikultura yang tahan hama dan cuaca ekstrem.</p>
+                        <a href="#" class="btn btn-primary mt-3">Lihat Katalog</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 reveal">
+                <div class="card h-100">
+                    <img class="card-img-top" src="https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?q=80&w=2071&auto=format&fit=crop" alt="Pupuk">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold">Pupuk Organik</h5>
+                        <p class="card-text text-custom-muted">Produksi pupuk ramah lingkungan untuk mengembalikan kesuburan tanah alami.</p>
+                        <a href="#" class="btn btn-primary mt-3">Lihat Produk</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 reveal">
+                <div class="card h-100">
+                    <img class="card-img-top" src="https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=2096&auto=format&fit=crop" alt="Konsultasi">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold">Smart Farming</h5>
+                        <p class="card-text text-custom-muted">Konsultasi penerapan IoT dan drone untuk pemantauan lahan yang presisi.</p>
+                        <a href="#" class="btn btn-primary mt-3">Hubungi Kami</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="kontak">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-md-4">
+                    <h4 class="fw-bold mb-3"><span class="logo-icon me-2"></span>AgroTani</h4>
+                    <p class="small">Membangun ekosistem pertanian yang berkelanjutan untuk Indonesia yang lebih hijau.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3 text-white">Tautan Cepat</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">Beranda</a></li>
+                        <li class="mb-2"><a href="#">Katalog Produk</a></li>
+                        <li class="mb-2"><a href="#">Program Kemitraan</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3 text-white">Hubungi Kami</h5>
+                    <address class="small">
+                        <strong>PT. AgroTani Modern</strong><br>
+                        Jl. Raya Pertanian No. 101, Bogor<br>
+                        Email: info@agrotani.id
+                    </address>
+                </div>
+            </div>
+            <hr class="my-4 border-secondary">
+            <div class="text-center small">
+                &copy; 2024 AgroTani Modern. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // 1. LOGIC DARK MODE
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Cek apakah user pernah simpan preferensi sebelumnya
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggleBtn.innerText = '🌙'; // Ikon bulan
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Ubah Ikon dan Simpan ke Local Storage
+            if (body.classList.contains('dark-mode')) {
+                themeToggleBtn.innerText = '🌙';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggleBtn.innerText = '☀';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // 2. Navbar Scroll Effect
+        const nav = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+                nav.classList.add('shadow');
+            } else {
+                nav.classList.remove('scrolled');
+                nav.classList.remove('shadow');
+            }
+        });
+
+        // 3. Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+  </body>
+</html>
